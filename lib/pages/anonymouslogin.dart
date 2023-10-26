@@ -16,18 +16,18 @@ class _AnonymousLoginState extends State<AnonymousLogin> {
     return SafeArea(
         child: Scaffold(
       backgroundColor: backgroundColor,
-      body: Stack(
-        fit: StackFit.loose,
-        children: [
-          Opacity(
-              opacity: 0.1,
-              child: Center(
-                  child: Lottie.asset("assets/signupscreenwelcome.json",
-                      fit: BoxFit.fill))),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Expanded(
-              child: Expanded(
+      body: Expanded(
+        child: Stack(
+          // fit: StackFit.loose,
+          children: [
+            Opacity(
+                opacity: 0.1,
+                child: Center(
+                    child: Lottie.asset("assets/signupscreenwelcome.json",
+                        fit: BoxFit.fill))),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Flexible(
                 child: ListView(
                   children: [
                     const SizedBox(
@@ -63,8 +63,8 @@ class _AnonymousLoginState extends State<AnonymousLogin> {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ));
   }
