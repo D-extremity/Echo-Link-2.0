@@ -12,6 +12,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController getUserName = TextEditingController();
+  TextEditingController getPass = TextEditingController();
+
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,8 @@ class _LoginPageState extends State<LoginPage> {
             InputText(false,
                     hintText: "Email / Username",
                     labelText: "Email / User Name",
-                    context: context)
+                    context: context
+                    , controller: getUserName,)
                 .inputTextField(),
             SizedBox(
               height: size.height * 0.05,
@@ -44,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
             InputText(true,
                     hintText: "Enter Your Password",
                     labelText: "Password",
-                    context: context)
+                    context: context,controller: getPass,)
                 .inputTextField(),
             SizedBox(
               height: size.height * 0.05,
