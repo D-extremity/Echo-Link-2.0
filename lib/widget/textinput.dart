@@ -6,11 +6,12 @@ class InputText extends TextField {
   final String labelText;
   final BuildContext context;
   final bool isObscurse;
+  final TextEditingController controller;
   const InputText(this.isObscurse,
       {super.key,
       required this.hintText,
       required this.labelText,
-      required this.context});
+      required this.context,required this.controller});
 
   Widget inputTextField() => TextField(
         onTapOutside: (event) =>
