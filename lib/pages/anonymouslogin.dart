@@ -68,6 +68,14 @@ class _AnonymousLoginState extends State<AnonymousLogin> {
                   ),
                   ElevatedButton(
                       onPressed: () {}, child: const Text("Sign Up")),
+                      const SizedBox(height: 10,),
+                      const Text(
+                    "Currently This Feature is not Working ..\nWe are so sorry 😔",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 126, 29, 22)),
+                  ),
               ],
             ),
           ),
