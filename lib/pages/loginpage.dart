@@ -1,3 +1,4 @@
+import 'package:chatapp/authorization/loginemail.dart';
 import 'package:chatapp/pages/signuppage.dart';
 import 'package:chatapp/utils/color.dart';
 import 'package:chatapp/widget/textinput.dart';
@@ -12,7 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController getUserName = TextEditingController();
+  TextEditingController getEmail = TextEditingController();
   TextEditingController getPass = TextEditingController();
 
   bool isLoading = false;
@@ -36,20 +37,23 @@ class _LoginPageState extends State<LoginPage> {
                   builder: (BuildContext context, size, noUseCurrently) =>
                       Image.asset("assets/people.png", height: size)),
             ),
-            InputText(false,
-                    hintText: "Email / Username",
-                    labelText: "Email / User Name",
-                    context: context
-                    , controller: getUserName,)
-                .inputTextField(),
+            InputText(
+              false,
+              hintText: "Email",
+              labelText: "Email",
+              context: context,
+              controller: getEmail,
+            ).inputTextField(),
             SizedBox(
               height: size.height * 0.05,
             ),
-            InputText(true,
-                    hintText: "Enter Your Password",
-                    labelText: "Password",
-                    context: context,controller: getPass,)
-                .inputTextField(),
+            InputText(
+              true,
+              hintText: "Enter Your Password",
+              labelText: "Password",
+              context: context,
+              controller: getPass,
+            ).inputTextField(),
             SizedBox(
               height: size.height * 0.05,
             ),
@@ -58,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                   setState(() {
                     isLoading = true;
                   });
+                  LoginMethod(email: getEmail.text, password: getPass.text).loginEmail(context);
                 },
                 child: const Text("Login")),
             Opacity(

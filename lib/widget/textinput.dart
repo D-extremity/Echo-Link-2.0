@@ -11,16 +11,19 @@ class InputText extends TextField {
       {super.key,
       required this.hintText,
       required this.labelText,
-      required this.context,required this.controller});
+      required this.context,
+      required this.controller});
 
   Widget inputTextField() => TextField(
         onTapOutside: (event) =>
             FocusScope.of(context).requestFocus(FocusNode()),
         style: const TextStyle(fontSize: 25),
         obscureText: isObscurse,
+        controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           fillColor: Colors.purple,
+          
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),

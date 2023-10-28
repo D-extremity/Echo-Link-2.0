@@ -1,7 +1,10 @@
-import 'dart:ui';
+// import 'dart:ui';
 
+import 'package:chatapp/authorization/signupemail.dart';
 import 'package:chatapp/utils/color.dart';
+import 'package:chatapp/utils/scaffold.dart';
 import 'package:chatapp/widget/textinput.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -13,6 +16,15 @@ class EmailLoginPage extends StatefulWidget {
 }
 
 class _EmailLoginPageState extends State<EmailLoginPage> {
+  //!SignUp with Email
+  void signUpEmail(BuildContext context) async {
+    await SignUpMethods(FirebaseAuth.instance).signUpWithEmail(
+        email: getEmail.text,
+        password: getPass.text,
+        context: context,
+        userName: getUserName.text);
+  }
+
   TextEditingController getUserName = TextEditingController();
   TextEditingController getEmail = TextEditingController();
   TextEditingController getPass = TextEditingController();
@@ -65,16 +77,27 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
                 const SizedBox(
                   height: 40,
                 ),
-                InputText(true,
-                        hintText: "Enter Password",
-                        labelText: "Password",
-                        context: context,
-                        controller: getPass,)
-                    .inputTextField(),
+                InputText(
+                  true,
+                  hintText: "Enter Password",
+                  labelText: "Password",
+                  context: context,
+                  controller: getPass,
+                ).inputTextField(),
                 const SizedBox(
                   height: 40,
                 ),
-                ElevatedButton(onPressed: () {}, child: const Text("Sign Up")),
+                ElevatedButton(
+                    onPressed: () {
+                      if (getEmail.text.isNotEmpty &&
+                          getPass.text.isNotEmpty &&
+                          getUserName.text.isNotEmpty) {
+                        signUpEmail(context);
+                      } else {
+                        scaffoldSnackbar(context, "Field are empty");
+                      }
+                    },
+                    child: const Text("Sign Up")),
               ],
             ),
           ),
