@@ -3,7 +3,8 @@
 // class Storage {
 //   FirebaseFirestore users = FirebaseFirestore.instance;
 //   Future getUserList() async {
-//     return await users.doc(uid).snapshots();
+//     await users.collection('users').snapshots();
+
 //   }
 // }
 
