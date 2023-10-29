@@ -16,10 +16,11 @@ class SignUpMethods {
       required String userName,
       required BuildContext context}) async {
     try {
-      // ignore: use_build_context_synchronously
-      await sendEmailVerification(context);
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
+      // ignore: use_build_context_synchronously
+      await sendEmailVerification(context);
+      
 
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'username': userName,
