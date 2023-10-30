@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
 class ChatWidget extends StatefulWidget {
- final bool isMyChat;
+  final bool isMyChat;
   final String chat;
+  final Alignment alignment;
+  final String otherPersonName;
+  final String senderName;
 
-  const ChatWidget({
-    super.key,
-    required this.size,
-    required this.chat,
-    required this.isMyChat,
-  });
+  const ChatWidget(
+      {super.key,
+      required this.senderName,
+      required this.size,
+      required this.chat,
+      required this.isMyChat,
+      required this.alignment,
+      required this.otherPersonName});
 
   final Size size;
 
@@ -21,6 +26,8 @@ class _ChatWidgetState extends State<ChatWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(10),
+      alignment: widget.alignment,
       width: widget.size.width * 0.45,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
@@ -42,9 +49,17 @@ class _ChatWidgetState extends State<ChatWidget> {
                     const Color.fromARGB(255, 57, 194, 86).withOpacity(0.1),
                   ]),
       ),
-      child: Text(
-        widget.chat,
-        style: const TextStyle(fontSize: 20, color: Colors.white),
+      child: Column(
+        children: [
+          Text(
+           widget.isMyChat?widget.senderName: widget.otherPersonName,
+            style: const TextStyle(fontSize: 10),
+          ),
+          Text(
+            widget.chat,
+            style: const TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ],
       ),
     );
   }
