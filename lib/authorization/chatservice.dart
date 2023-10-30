@@ -43,7 +43,7 @@ class ChatService {
         .collection('Chat Rooms')
         .doc(chatRoomId)
         .collection('messages')
-        .orderBy('timeStamp', descending: false)
+        .orderBy('timeStamp', descending: true)
         .snapshots();
   }
 }
