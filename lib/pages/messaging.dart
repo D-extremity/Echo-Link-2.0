@@ -52,68 +52,69 @@ class _MessagingState extends State<Messaging> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(right: 8, left: 8),
-        child: ListView(children: [
-          Container(
-            height: size.height * 0.75,
-            width: double.infinity,
-            // ! child: ,  Column will come here to show chats
-            // color: Colors.deepPurple.shade200.withOpacity(0.2),
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                  Colors.deepPurple.withOpacity(0.2),
-                  Colors.deepPurpleAccent.withOpacity(0.2),
-                  const Color.fromARGB(255, 208, 5, 244).withOpacity(0.1),
-                  const Color.fromARGB(255, 210, 13, 228).withOpacity(0.1),
-                  Colors.pink.withOpacity(0.2),
-                ])),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: _buildMessageList(size))
-                // ChatWidget(
-                // size: size,
-                //   isMyChat: false,
-                //   chat: "  Satyam is my name heres the first chat",
-                // ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: size.height * 0.05,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: TextField(
-              onTapOutside: (event) =>
-                  FocusScope.of(context).requestFocus(FocusNode()),
-              style: const TextStyle(fontSize: 20),
-              controller: _messageController,
-              canRequestFocus: true,
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    Icons.send,
-                    size: 40,
-                    color: Colors.blueGrey.shade900,
-                  ),
-                  onPressed: () {
-                    sendMessage();
-                  }, //! send chat
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                fillColor: Colors.deepPurple,
-                filled: true,
-                hintText: "Yeah , why not..",
+        child: ListView(
+          children: [
+            Container(
+              height: size.height * 0.75,
+              width: double.infinity,
+              // ! child: ,  Column will come here to show chats
+              // color: Colors.deepPurple.shade200.withOpacity(0.2),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                    Colors.deepPurple.withOpacity(0.2),
+                    Colors.deepPurpleAccent.withOpacity(0.2),
+                    const Color.fromARGB(255, 208, 5, 244).withOpacity(0.1),
+                    const Color.fromARGB(255, 210, 13, 228).withOpacity(0.1),
+                    Colors.pink.withOpacity(0.2),
+                  ])),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: _buildMessageList(size))
+                  // ChatWidget(
+                  // size: size,
+                  //   isMyChat: false,
+                  //   chat: "  Satyam is my name heres the first chat",
+                  // ),
+                ],
               ),
             ),
-          ),
-          
-        ]),
+            SizedBox(
+              height: size.height * 0.05,
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: TextField(
+                onTapOutside: (event) =>
+                    FocusScope.of(context).requestFocus(FocusNode()),
+                style: const TextStyle(fontSize: 20),
+                controller: _messageController,
+                canRequestFocus: true,
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      Icons.send,
+                      size: 40,
+                      color: Colors.blueGrey.shade900,
+                    ),
+                    onPressed: () {
+                      sendMessage();
+                    }, //! send chat
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  fillColor: Colors.deepPurple,
+                  filled: true,
+                  hintText: "Yeah , why not..",
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     ));
   }
@@ -128,12 +129,13 @@ class _MessagingState extends State<Messaging> {
             return Text("Error : ${snapshot.error}");
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const SizedBox(height: 10,width: 10,child: CircularProgressIndicator());
           }
 
           return ListView(
+            reverse: true,
             children: snapshot.data!.docs
-                .map((document) => _buildMessageItem(document,size))
+                .map((document) => _buildMessageItem(document, size))
                 .toList(),
           );
         });
@@ -148,11 +150,12 @@ class _MessagingState extends State<Messaging> {
     bool isMyChat =
         (data['senderId'] == FirebaseAuth.instance.currentUser!.uid.toString());
     return ChatWidget(
-        size: size,
-        chat: data['message'],
-        isMyChat: isMyChat,
-        alignment: alignment,
-        otherPersonName: widget.otherPersonName,
-        senderName: "You",);
+      size: size,
+      chat: data['message'],
+      isMyChat: isMyChat,
+      alignment: alignment,
+      otherPersonName: widget.otherPersonName,
+      senderName: "You",
+    );
   }
 }

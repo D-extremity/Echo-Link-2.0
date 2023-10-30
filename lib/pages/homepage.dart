@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
           stream: FirebaseFirestore.instance.collection('users').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return const CircularProgressIndicator();
+              return const SizedBox(height: 120,width: 120,child: CircularProgressIndicator());
             }
             if (snapshot.hasData) {
               // print("**************");
