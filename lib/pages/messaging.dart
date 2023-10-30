@@ -119,6 +119,7 @@ class _MessagingState extends State<Messaging> {
     ));
   }
 
+//* to get list of messages
   Widget _buildMessageList(final size) {
     return StreamBuilder(
         stream: _chatService.getMessages(
@@ -129,17 +130,23 @@ class _MessagingState extends State<Messaging> {
             return Text("Error : ${snapshot.error}");
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SizedBox(height: 10,width: 10,child: CircularProgressIndicator());
+            return const SizedBox(
+                height: 10, width: 10, child: CircularProgressIndicator());
           }
-
+//* it is returning messages in a chat form by using _buildMessageItem method
           return ListView(
             reverse: true,
-            children: snapshot.data!.docs
+                //* snapshot.data!.docs will return QueryDocumentSnapshot hence snapshot.data!.docs.map
+                //* will return actual data present in that document and then document is passed to function _buildMessageItem , 
+                //* to return list of widgets (list of messages in a chat individual chat widget)
+            children: snapshot.data!
+                .docs 
                 .map((document) => _buildMessageItem(document, size))
-                .toList(),
+                .toList(), //* Children of list view required List<Widgets>
           );
         });
   }
+
 
   Widget _buildMessageItem(DocumentSnapshot document, final size) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
